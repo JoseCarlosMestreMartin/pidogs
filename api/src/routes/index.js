@@ -17,12 +17,64 @@ const objDogApiToMiDog = (DogApi) => {
   miDog.id = DogApi.id;
   miDog.image = DogApi.image.url;
   miDog.name = DogApi.name;
-  miDog.heightMin = parseInt(DogApi.height.metric.slice(0, 2).trim());
-  miDog.heightMax = parseInt(DogApi.height.metric.slice(4).trim());
-  miDog.weightMin = parseInt(DogApi.weight.metric.slice(0, 2).trim());
-  miDog.weightMax = parseInt(DogApi.weight.metric.slice(4).trim());
-  miDog.life_spanMin = parseInt(DogApi.life_span.slice(0, 2).trim());
-  miDog.life_spanMax = parseInt(DogApi.life_span.slice(4).trim());
+
+  //height
+  let height = DogApi.height.metric.split("-");
+  if (height[0] && height[1] && !isNaN(height[0]) && !isNaN(height[1])) {
+    miDog.heightMin = parseFloat(height[0].trim());
+    miDog.heightMax = parseFloat(height[1].trim());
+  } else if (height[0]  && !isNaN(height[0])) {
+    miDog.heightMin = Math.floor(parseFloat(height[0].trim()) * 0.9 * 10) / 10;
+    miDog.heightMax = Math.ceil(parseFloat(height[0].trim()) * 1.1 * 10) / 10;
+  } else if (height[1] && !isNaN(height[1])) {
+    miDog.heightMin = Math.floor(parseFloat(height[1].trim()) * 0.9 * 10) / 10;
+    miDog.heightMax = Math.ceil(parseFloat(height[1].trim()) * 1.1 * 10) / 10;
+  } else {
+    miDog.heightMin = 0.0;
+    miDog.heightMax = 1.0;
+  }
+  //
+  //weight
+  let weight = DogApi.weight.metric.split("-");
+  if (weight[0] && weight[1] && !isNaN(weight[0]) && !isNaN(weight[1])) {
+    miDog.weightMin = parseFloat(weight[0].trim());
+    miDog.weightMax = parseFloat(weight[1].trim());
+  } else if (weight[0] && !isNaN(weight[0])) {
+    miDog.weightMin = Math.floor(parseFloat(weight[0].trim()) * 0.9 * 10) / 10;
+    miDog.weightMax = Math.ceil(parseFloat(weight[0].trim()) * 1.1 * 10) / 10;
+  } else if (weight[1] && !isNaN(weight[1])) {
+    miDog.weightMin = Math.floor(parseFloat(weight[1].trim()) * 0.9 * 10) / 10;
+    miDog.weightMax = Math.ceil(parseFloat(weight[1].trim()) * 1.1 * 10) / 10;
+  } else {
+    miDog.weightMin = 0.1;
+    miDog.weightMax = 1.0;
+  }
+  //
+
+  //life_span
+  let life_span = DogApi.life_span.split(" ");
+  if (life_span[0] && life_span[2] && !isNaN(life_span[0]) && !isNaN(life_span[2])) {
+    miDog.life_spanMin = parseInt(life_span[0].trim());
+    miDog.life_spanMax = parseInt(life_span[2].trim());
+  } else if (life_span[0] && !isNaN(life_span[0])) {
+    miDog.life_spanMin = parseInt(
+      Math.floor(parseFloat(life_span[0].trim()) * 0.9 * 10) / 10
+    );
+    miDog.life_spanMax = parseInt(
+      Math.ceil(parseFloat(life_span[0].trim()) * 1.1 * 10) / 10
+    );
+  } else if (life_span[2] && !isNaN(life_span[2])) {
+    miDog.life_spanMin = parseInt(
+      Math.floor(parseFloat(life_span[2].trim()) * 0.9 * 10) / 10
+    );
+    miDog.life_spanMax = parseInt(
+      Math.ceil(parseFloat(life_span[2].trim()) * 1.1 * 10) / 10
+    );
+  } else {
+    miDog.life_spanMin = 1;
+    miDog.life_spanMax = 4;
+  }
+  //
   miDog.isCreated = false;
   miDog.temperament = DogApi.temperament;
   if (
@@ -35,10 +87,13 @@ const objDogApiToMiDog = (DogApi) => {
     !miDog.weightMax ||
     !miDog.life_spanMin ||
     !miDog.life_spanMax
-  )
+  ) {
     console.log(
-      "falta un campo en la conversion de objetos de Dog de la api a dog de mi api"
+      "falta un campo en la conversion de objetos de Dog de la api a dog de mi api",
+      miDog
     );
+    console.log("DogApi: ",DogApi);
+  }
   return miDog;
 };
 
@@ -52,14 +107,19 @@ router.get("/dogs", async (req, res, next) => {
     return res.status(404).send("No esta impplementada esta busqueda");
   } else {
     //retornar todas las razas, api y db
-    console.log("${urlDogApi}?api_key=${YOUR_API_KEY}: ",`${urlDogApi}?api_key=${YOUR_API_KEY}`)
+    // console.log(
+    //   "${urlDogApi}?api_key=${YOUR_API_KEY}: ",
+    //   `${urlDogApi}?api_key=${YOUR_API_KEY}`
+    // );
     try {
       let aux = await axios.get(`${urlDogApi}?api_key=${YOUR_API_KEY}`);
-      console.log("arrayDogApiAux: ", aux.data);
-      arrayDogApiAux = aux.data.map((e)=> {return objDogApiToMiDog(e)});
+      //console.log("arrayDogApiAux: ", aux.data);
+      arrayDogApiAux = aux.data.map((e) => {
+        return objDogApiToMiDog(e);
+      });
       return res.send(arrayDogApiAux);
     } catch (error) {
-        return res.status(400).json({ message: error.message });
+      return res.status(400).json({ message: error.message });
     }
   }
 });

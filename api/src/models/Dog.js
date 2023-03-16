@@ -20,25 +20,25 @@ module.exports = (sequelize) => {
       unique: true,
     },
     heightMin: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     heightMax: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     weightMin: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
     weightMax: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.FLOAT,
       allowNull: false,
     },
-    life_spanMax: {
+    life_spanMin: {
       type: DataTypes.INTEGER,
     },
-    life_spanMin: {
+    life_spanMax: {
       type: DataTypes.INTEGER,
     },
     isCreated: {
