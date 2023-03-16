@@ -4,120 +4,37 @@ const { Router } = require("express");
 
 const router = Router();
 
-const axios = require("axios");
+// const axios = require("axios");
 const { Temperament, Dog } = require("../db");
-const { YOUR_API_KEY } = process.env;
-const urlDogApi = "https://api.thedogapi.com/v1/breeds";
+const {
+  getAllDogs,
+  getDogsByName,
+  getDogsByID,
+  getAllTemperaments,
+} = require("../Controllers/Controllers");
+// const { YOUR_API_KEY } = process.env;
+// const urlDogApi = "https://api.thedogapi.com/v1/breeds";
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-
-const objDogApiToMiDog = (DogApi) => {
-  let miDog = {};
-  miDog.id = DogApi.id;
-  miDog.image = DogApi.image.url;
-  miDog.name = DogApi.name;
-
-  //height
-  let height = DogApi.height.metric.split("-");
-  if (height[0] && height[1] && !isNaN(height[0]) && !isNaN(height[1])) {
-    miDog.heightMin = parseFloat(height[0].trim());
-    miDog.heightMax = parseFloat(height[1].trim());
-  } else if (height[0]  && !isNaN(height[0])) {
-    miDog.heightMin = Math.floor(parseFloat(height[0].trim()) * 0.9 * 10) / 10;
-    miDog.heightMax = Math.ceil(parseFloat(height[0].trim()) * 1.1 * 10) / 10;
-  } else if (height[1] && !isNaN(height[1])) {
-    miDog.heightMin = Math.floor(parseFloat(height[1].trim()) * 0.9 * 10) / 10;
-    miDog.heightMax = Math.ceil(parseFloat(height[1].trim()) * 1.1 * 10) / 10;
-  } else {
-    miDog.heightMin = 0.0;
-    miDog.heightMax = 1.0;
-  }
-  //
-  //weight
-  let weight = DogApi.weight.metric.split("-");
-  if (weight[0] && weight[1] && !isNaN(weight[0]) && !isNaN(weight[1])) {
-    miDog.weightMin = parseFloat(weight[0].trim());
-    miDog.weightMax = parseFloat(weight[1].trim());
-  } else if (weight[0] && !isNaN(weight[0])) {
-    miDog.weightMin = Math.floor(parseFloat(weight[0].trim()) * 0.9 * 10) / 10;
-    miDog.weightMax = Math.ceil(parseFloat(weight[0].trim()) * 1.1 * 10) / 10;
-  } else if (weight[1] && !isNaN(weight[1])) {
-    miDog.weightMin = Math.floor(parseFloat(weight[1].trim()) * 0.9 * 10) / 10;
-    miDog.weightMax = Math.ceil(parseFloat(weight[1].trim()) * 1.1 * 10) / 10;
-  } else {
-    miDog.weightMin = 0.1;
-    miDog.weightMax = 1.0;
-  }
-  //
-
-  //life_span
-  let life_span = DogApi.life_span.split(" ");
-  if (life_span[0] && life_span[2] && !isNaN(life_span[0]) && !isNaN(life_span[2])) {
-    miDog.life_spanMin = parseInt(life_span[0].trim());
-    miDog.life_spanMax = parseInt(life_span[2].trim());
-  } else if (life_span[0] && !isNaN(life_span[0])) {
-    miDog.life_spanMin = parseInt(
-      Math.floor(parseFloat(life_span[0].trim()) * 0.9 * 10) / 10
-    );
-    miDog.life_spanMax = parseInt(
-      Math.ceil(parseFloat(life_span[0].trim()) * 1.1 * 10) / 10
-    );
-  } else if (life_span[2] && !isNaN(life_span[2])) {
-    miDog.life_spanMin = parseInt(
-      Math.floor(parseFloat(life_span[2].trim()) * 0.9 * 10) / 10
-    );
-    miDog.life_spanMax = parseInt(
-      Math.ceil(parseFloat(life_span[2].trim()) * 1.1 * 10) / 10
-    );
-  } else {
-    miDog.life_spanMin = 1;
-    miDog.life_spanMax = 4;
-  }
-  //
-  miDog.isCreated = false;
-  miDog.temperament = DogApi.temperament;
-  if (
-    !miDog.id ||
-    !miDog.image ||
-    !miDog.name ||
-    !miDog.heightMin ||
-    !miDog.heightMax ||
-    !miDog.weightMin ||
-    !miDog.weightMax ||
-    !miDog.life_spanMin ||
-    !miDog.life_spanMax
-  ) {
-    console.log(
-      "falta un campo en la conversion de objetos de Dog de la api a dog de mi api",
-      miDog
-    );
-    console.log("DogApi: ",DogApi);
-  }
-  return miDog;
-};
 
 // 📍 GET | /dogs
 // Obtiene un arreglo de objetos, donde cada objeto es la raza de un perro.
 router.get("/dogs", async (req, res, next) => {
   const name = req.query.name;
-  let arrayDogApiAux = [];
   if (name) {
-    console.log("si hay nombre por query, entonces buscar la raza");
-    return res.status(404).send("No esta impplementada esta busqueda");
-  } else {
-    //retornar todas las razas, api y db
-    // console.log(
-    //   "${urlDogApi}?api_key=${YOUR_API_KEY}: ",
-    //   `${urlDogApi}?api_key=${YOUR_API_KEY}`
-    // );
+    /// retornar un array de las razas que incluyan name en su name
     try {
-      let aux = await axios.get(`${urlDogApi}?api_key=${YOUR_API_KEY}`);
-      //console.log("arrayDogApiAux: ", aux.data);
-      arrayDogApiAux = aux.data.map((e) => {
-        return objDogApiToMiDog(e);
-      });
-      return res.send(arrayDogApiAux);
+      let aux = await getDogsByName(name);
+      return res.send(aux);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  } else {
+    //retornar todas las razas
+    try {
+      let aux = await getAllDogs();
+      return res.send(aux);
     } catch (error) {
       return res.status(400).json({ message: error.message });
     }
@@ -128,7 +45,20 @@ router.get("/dogs", async (req, res, next) => {
 // La raza es recibida por parámetro (ID).
 // Tiene que incluir los datos de los temperamentos asociadas a esta raza.
 // Debe funcionar tanto para los perros de la API como para los de la base de datos.
-
+router.get("/dogs/:idRaza", async (req, res, next) => {
+  const idRaza = req.params.idRaza;
+  if (idRaza) {
+    /// retornar un objeto
+    try {
+      let aux = await getDogsByID(idRaza);
+      return res.json(aux);
+    } catch (error) {
+      return res.status(400).json({ message: error.message });
+    }
+  } else {
+    console.log("no existe idRaza");
+  }
+});
 // 📍 GET | /dogs/name?="..."
 // Esta ruta debe obtener todas aquellas razas de perros que coinciden con el nombre recibido por query. (No es necesario que sea una coincidencia exacta).
 // Debe poder buscarlo independientemente de mayúsculas o minúsculas.
@@ -139,9 +69,74 @@ router.get("/dogs", async (req, res, next) => {
 // Esta ruta recibirá todos los datos necesarios para crear un nuevo perro y relacionarlo con los temperamentos asociados.
 // Toda la información debe ser recibida por body.
 // Debe crear la raza de perro en la base de datos, y esta debe estar relacionada con los temperamentos indicados (al menos uno).
+router.post("/dogs", async (req, res) => {
+  const {
+    image,
+    name,
+    heightMin,
+    heightMax,
+    weightMin,
+    weightMax,
+    life_spanMin,
+    life_spanMax,
+    temperament,
+  } = req.body;
+  if (
+    !name ||
+    !heightMin ||
+    !heightMax ||
+    !weightMin ||
+    !weightMax ||
+    !life_spanMin ||
+    !life_spanMax ||
+    !temperament
+  ) {
+    return res.status(400).send("Faltan datos");
+  }
+  if (
+    heightMin >= heightMax ||
+    weightMin >= weightMax ||
+    life_spanMin >= life_spanMax
+  ) {
+    return res.status(400).send("Los mìnimos deben ser menores a los máximos");
+  }
+  try {
+    let dog = await Dog.create({
+      image:
+        image ||
+        "https://www.mundoprimaria.com/wp-content/uploads/2019/07/dibujos-perros-para-colorear.jpg",
+      name,
+      heightMin: parseFloat(heightMin),
+      heightMax: parseFloat(heightMax),
+      weightMin: parseFloat(weightMin),
+      weightMax: parseFloat(weightMax),
+      life_spanMin: parseInt(life_spanMin),
+      life_spanMax: parseInt(life_spanMax),
+      isCreated: true,
+    });
+    let tempObj = await Temperament.findOrCreate({
+      where: { name: temperament },
+    });
+console.log("tempObj: ",tempObj);
+console.log("tempObj.id: ",tempObj.id)
+    await dog.addTemperament(tempObj);
+    return res.status(200).send(dog);
+  } catch (error) {
+    return res.status(400).send("error en la creacion del dog");
+  }aqui te quedaste
+});
 
 // 📍 GET | /temperaments
 // Obtiene todos los temperamentos existentes.
 // Estos deben ser obtenidos de la API (se evaluará que no haya hardcodeo). Luego de obtenerlos de la API, deben ser guardados en la base de datos para su posterior consumo desde allí.
+router.get("/temperaments", async (req, res, next) => {
+  /// retornar un array
+  try {
+    let aux = await getAllTemperaments();
+    return res.send(aux);
+  } catch (error) {
+    return res.status(400).json({ message: error.message });
+  }
+});
 
 module.exports = router;
