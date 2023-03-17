@@ -114,16 +114,21 @@ router.post("/dogs", async (req, res) => {
       life_spanMax: parseInt(life_spanMax),
       isCreated: true,
     });
-    let tempObj = await Temperament.findOrCreate({
-      where: { name: temperament },
+    
+    temperament.forEach( async (e) => {
+      let tempObj = await Temperament.findOrCreate({
+        where: { name: e },
+      });
+    console.log("tempObj: ",JSON.stringify(tempObj));
+    console.log("tempObj[0].id: ",JSON.stringify(tempObj[0].id));
+      //await dog.addTemperament(tempObj);
+      await dog.addTemperament(tempObj[0].id);
+      
     });
-console.log("tempObj: ",tempObj);
-console.log("tempObj.id: ",tempObj.id)
-    await dog.addTemperament(tempObj);
     return res.status(200).send(dog);
   } catch (error) {
-    return res.status(400).send("error en la creacion del dog");
-  }aqui te quedaste
+    return res.status(400).send(error.message);
+  }
 });
 
 // 📍 GET | /temperaments

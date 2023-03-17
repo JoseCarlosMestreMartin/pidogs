@@ -5,10 +5,15 @@ module.exports = (sequelize) => {
     "temperament",
     {
       id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        primaryKey: true, // es la llave primaria
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true
       },
+    //   id: {
+    //     type: DataTypes.UUID,
+    //     defaultValue: DataTypes.UUIDV4,
+    //     primaryKey: true, // es la llave primaria
+    //   },
       name: {
         type: DataTypes.STRING,
         allowNull: false, //

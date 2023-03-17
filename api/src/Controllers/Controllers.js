@@ -106,8 +106,55 @@ const getAllDogsApi = async () => {
   }
   return arrayDogApiAux;
 };
+//////////////
+const getAllDogsDB = async () => {
+  let arrayDogAux = [];
+  try {
+    //arrayDogAux = await Dog.findAll();
+    let arrayAux = await Dog.findAll({
+      include: {
+        model: Temperament,
+        atributes: ["name"],
+        through: {
+          attributes: [],
+        },
+      },
+    });
+    //arrayDogAux = arrayAux;
+    arrayDogAux = arrayAux.map(dog => { //mapea los datos de la bd
+      let temp = dog.temperaments.map(t => t.name); //trae los temperamentos de la bd
+      let auxTemp = temp.join(", "); //convierte el array de temperamentos en un string
+      
+      return {
+          id: dog.id,
+          image: dog.image,
+          name: dog.name,
+          heightMin: dog.heightMin,
+          heightMax: dog.heightMax,
+          weightMin: dog.weightMin,
+          weightMax: dog.weightMax,
+          life_spanMin: dog.life_spanMin,
+          life_spanMax: dog.life_spanMax,
+          temperament: auxTemp,
+          isCcreated: dog.isCreated
+      };
+
+  });
+   // console.log(" arrayAux: ", JSON.stringify(arrayAux));
+    return arrayDogAux;
+
+  } catch (error) {
+    console.log("error", error.message);
+  }
+
+  return arrayDogAux;
+};
+///////////
 const getAllDogs = async () => {
-  let arrayDogs = await getAllDogsApi();
+  let arrayDogsAPI = await getAllDogsApi();
+  let arrayDogsDB = await getAllDogsDB();
+
+  let arrayDogs = arrayDogsDB.concat(arrayDogsAPI);
   return arrayDogs;
 };
 
@@ -161,8 +208,6 @@ const getAllTemperaments = async () => {
   return auxTemps;
 };
 
-const createDog = async (dog)=>{
-    
-};
+const createDog = async (dog) => {};
 
 module.exports = { getAllDogs, getDogsByName, getDogsByID, getAllTemperaments };
