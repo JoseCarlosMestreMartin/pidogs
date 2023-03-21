@@ -1,0 +1,25 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(15, 117, 34, 0.8);
+  width: 300px;
+  height: 600px;
+  justify-content: space-between;
+  border: 0.5em brown;
+}
+
+.cardImg {
+  
+  align-self: center;
+  background-color: rgba(20, 15, 117, 0.1);
+  border: 0.2em black
+}
+
+.cardInfo {
+  display: flex;
+  background-color: rgba(255, 0, 0, 0.1);
+  flex-direction: column;
+  justify-content: space-around;
+  border: 0.2em black;
+ 
+}

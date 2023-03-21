@@ -1,0 +1,25 @@
+.background{
+    background-image: url('./Images/LandingPage.jpg');
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    height: 100vh;
+    background-repeat: no-repeat;
+    align-items: center;
+  }
+  .button {
+    align-items: center;
+    padding: 1.5em 3em;
+    border: 0.5em rgb(112, 45, 45) solid;
+    outline: none;
+    color: rgb(0, 0, 0);
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    
+  }
+  .button:hover {
+    background: rgba(255, 255, 255, 1);
+    
+}
