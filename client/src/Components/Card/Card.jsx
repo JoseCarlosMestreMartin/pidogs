@@ -12,26 +12,22 @@ export default function Card({
 }) {
   return (
     <div className={style.card}>
-      <div className={style.cardImg}>
-        <img
-          className={style.img}
-          src={image}
-          alt={`of: ${name}`}
-          height="300px"
-          width="200px"
-        />
+      <div className={`${style.imageDiv}`}>
+        <img src={image} alt={`of: ${name}`} with={100} />
       </div>
 
+      <div className={`${style.nameInfo}`}>
+        <Link to={"/Detail"}>
+          <h3>{name}</h3>
+        </Link>
+      </div>
       <div className={`${style.cardInfo}`}>
-        <div className={`${style.titleStyle}`}>
-          <Link to={"/Detail"}>
-            <h3>{name}</h3>
-          </Link>
-          <h2>{temperament}</h2>
-          <h2>
+      
+          <h3>{temperament}</h3>
+          <h3>
             Weigth: {weightMin} to {weightMax} Kg
-          </h2>
-        </div>
+          </h3>
+      
       </div>
     </div>
   );
