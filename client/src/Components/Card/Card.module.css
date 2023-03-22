@@ -18,7 +18,7 @@
   box-sizing: content-box;
   width: 90%;
   padding: 0.001em;
-  color: rgb(0, 0, 0);
+  color: rgb(0, 50, 0);
   border-radius: 1em;
 }
 .cardInfo {
@@ -31,7 +31,7 @@
   box-sizing: content-box;
   width: 90%;
   padding: 0.001em;
-  color: rgba(0, 0, 0, 0);
+  color: rgba(0, 50, 0, 0);
   border-radius: 1em;
 }
 .nameInfo {
@@ -44,6 +44,7 @@
   box-sizing: content-box;
   width: 90%;
   border-radius: 1em;
+  color: rgb(0, 50, 0);
 }
 .nameInfo:hover {
   background-color: rgba(255, 255, 255, 1);
@@ -56,6 +57,7 @@
   width: 90%;
   box-shadow: 10px 5px 5px black;
   border-radius: 1em;
+  color: rgb(0, 50, 0);
 }
 img {
   max-width: 100%;
