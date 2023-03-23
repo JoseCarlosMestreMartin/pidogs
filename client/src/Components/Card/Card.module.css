@@ -1,68 +1,11 @@
 .card {
-  background-color: rgb(159, 60, 60);
+  position: relative;
+  background-color: rgb(255, 255, 255);
   width: 300px;
   height: 250px;
   border: 0.3em rgb(127, 3, 3) solid;
   box-shadow: 5px 5px 5px black;
   margin: 0.5em;
-  border-radius: 1em;
-}
-
-.cardInfo:hover {
-  background-color: rgba(255, 255, 255, 0.5);
-  position: relative;
-  top: -80%;
-  margin-bottom: 5%;
-  left: 5%;
-  border: 0.2em black;
-  box-sizing: content-box;
-  width: 90%;
-  padding: 0.001em;
-  color: rgb(0, 50, 0);
-  border-radius: 1em;
-}
-.cardInfo {
-  background-color: rgba(255, 255, 255, 0);
-  position: relative;
-  top: -80%;
-  margin-bottom: 5%;
-  left: 5%;
-  border: 0.2em black;
-  box-sizing: content-box;
-  width: 90%;
-  padding: 0.001em;
-  color: rgba(0, 50, 0, 0);
-  border-radius: 1em;
-}
-.nameInfo {
-  background-color: rgba(255, 255, 255, 0.8);
-  position: relative;
-  top: -105%;
-  margin-bottom: 5%;
-  left: 5%;
-  border: 0.2em black;
-  box-sizing: content-box;
-  width: 90%;
-  border-radius: 1em;
-  color: rgb(0, 50, 0);
-}
-.nameInfo:hover {
-  background-color: rgba(255, 255, 255, 1);
-  position: relative;
-  top: -105%;
-  margin-bottom: 5%;
-  left: 5%;
-  border: 0.5em black;
-  box-sizing: content-box;
-  width: 90%;
-  box-shadow: 10px 5px 5px black;
-  border-radius: 1em;
-  color: rgb(0, 50, 0);
-}
-img {
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
   border-radius: 1em;
 }
 
@@ -75,4 +18,53 @@ img {
   height: 100%;
   border-radius: 1em;
 }
+.cardInfo {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  margin-bottom: 5%;
+  border: 0.5em black;
+  box-sizing: content-box;
+  width: 100%;
+  height: 100%;
+  padding: 0.001em;
+  color: rgba(0, 50, 0, 1);
+  border-radius: 1em;
+}
+.conteinerFlex {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  
+  border-radius: 1em;
+}
+.name {
+  background-color: rgba(255, 255, 255, 0.4);
+  width: 100%;
+  border-radius: 1em;
+  color: rgb(0, 50, 0);
+}
+.name:hover{
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 0.2em rgb(127, 3, 3) solid;
+  box-shadow: 0.1em 0.1em 0.1em;
+}
+.text {
+  background-color: rgba(255, 255, 255, 0);
+  color: rgba(0, 0, 0, 0);
+  border-radius: 1em;
+  width: 95%;
+}
+.text:hover{
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}
 
+img {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  border-radius: 1em;
+}

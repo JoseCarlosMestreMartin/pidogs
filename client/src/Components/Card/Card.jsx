@@ -16,18 +16,20 @@ export default function Card({
         <img src={image} alt={`of: ${name}`} with={100} />
       </div>
 
-      <div className={`${style.nameInfo}`}>
-        <Link to={"/Detail"}>
-          <h3>{name}</h3>
-        </Link>
-      </div>
       <div className={`${style.cardInfo}`}>
-      
-          <h3>{temperament}</h3>
-          <h3>
-            Weigth: {weightMin} to {weightMax} Kg
-          </h3>
-      
+        <div className={style.conteinerFlex}>
+          <div className={`${style.name}`}>
+            <Link to={"/Detail"}>
+              <h3>{name}</h3>
+            </Link>
+          </div>
+          <div className={style.text}>
+            <h3>{temperament}</h3>
+            <h3>
+              Weigth: {weightMin} to {weightMax} Kg
+            </h3>
+          </div>
+        </div>
       </div>
     </div>
   );
