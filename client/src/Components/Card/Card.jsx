@@ -19,7 +19,7 @@ export default function Card({
       <div className={`${style.cardInfo}`}>
         <div className={style.conteinerFlex}>
           <div className={`${style.name}`}>
-            <Link to={"/Detail"}>
+            <Link to={`/Detail/${id}`}>
               <h3>{name}</h3>
             </Link>
           </div>
