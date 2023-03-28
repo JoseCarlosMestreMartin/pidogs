@@ -1,0 +1,26 @@
+.navContainer{
+ background-color: blueviolet;
+}
+
+.ulContainer{
+    padding: 0 0 5em 0.5em;
+    background-color: aqua;
+}
+
+.liContainer{
+    list-style: none;
+    float: left;
+    margin: 0.2em;
+    text-align: center;
+    background-color: red;
+}
+
+.liContainer button{
+    color: #575025;
+    background-color: white;
+    width: 2.1rem;
+    padding: 0.5rem 0.7rem;
+    border-radius: 25%;
+    border: 1px solid #575025;
+    text-align: center;
+}

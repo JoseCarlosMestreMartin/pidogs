@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllDogs } from "../../redux/actions";
 
 import { useState, useEffect } from "react";
+import Paginate from "../Paginate/Paginate";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,14 +22,16 @@ export default function Home() {
   console.log("dogs1 :",dogs);
 
   return (
+    <div>
+
     <div className={style.content}>
       {/* {dogsToPaint.forEach(e => {
         <Card
-          image="https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
-          name="Affenpinscher"
-          temperament="1 temperamento Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"
-          weightMin={3}
-          weightMax={6}
+        image="https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
+        name="Affenpinscher"
+        temperament="1 temperamento Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"
+        weightMin={3}
+        weightMax={6}
         />;
       })} */}
          {dogsToPaint?.map((e) => {//validacion que existan los datos
@@ -41,30 +44,23 @@ export default function Home() {
             weightMin={e.weightMin}
             weightMax={e.weightMax}
             id={e.id}
-          />
+            />
             </div>      
           )
         })}
         
-          
+  
         
-
-      
-      <Card
-        image="https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
-        name="Affenpinscher"
-        temperament="1 temperamento Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"
-        weightMin={3}
-        weightMax={6}
-      />
       {/* <Card
     image="https://cdn2.thedogapi.com/images/rkiByec47.jpg"
     name="African Hunting Dog"
     temperament="2do temperamentoWild, Hardworking, Dutiful"
     weightMin={3}
     weightMax={6}
-
+    
   /> */}
     </div>
+    <Paginate cantDogsPerPage={8} cantDogs={50} />
+  </div>
   );
 }
