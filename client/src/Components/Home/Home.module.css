@@ -3,5 +3,12 @@
     flex-direction: row;
     border: 0.5em brown;
     flex-wrap: wrap;
-    background-color: blue;
+    background-color: rgba(0, 0, 255, 0.409);
   }
+.pagination{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.1em black solid;
+  background-color: yellow;
+}

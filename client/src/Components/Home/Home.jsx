@@ -13,54 +13,55 @@ export default function Home() {
     dispatch(getAllDogs());
     setTimeout(() => {
       console.log("fin de espera de 5s");
-      console.log("dogs del seTimer :",dogs);}, 5000);
+      console.log("dogs del seTimer :", dogs);
+    }, 5000);
   }, [dispatch]);
 
   const dogs = useSelector((state) => state.dogs); //traigo las razas para mostrar
-  const dogsToPaint = dogs.slice(0, 16); // luego reemplazar segun el paginado
+  const [currentPage, setCurrentPage] = useState(1);
+  const dogsPerPage = 16;
+  const lastIndex = currentPage * dogsPerPage;
+  const firstIndex = lastIndex - dogsPerPage;
+  const dogsToPaint = dogs.slice(firstIndex, lastIndex); // luego reemplazar segun el paginado
+  const paginado = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   console.log("dogsToPaint :", dogsToPaint);
-  console.log("dogs1 :",dogs);
+  console.log("dogs1 :", dogs);
 
   return (
     <div>
-
-    <div className={style.content}>
-      {/* {dogsToPaint.forEach(e => {
-        <Card
-        image="https://cdn2.thedogapi.com/images/BJa4kxc4X.jpg"
-        name="Affenpinscher"
-        temperament="1 temperamento Stubborn, Curious, Playful, Adventurous, Active, Fun-loving"
-        weightMin={3}
-        weightMax={6}
-        />;
-      })} */}
-         {dogsToPaint?.map((e) => {//validacion que existan los datos
-          return(
-            <div >
+      <div>
+        
+      </div>
+      <div className={style.content}>
+        
+        {dogsToPaint?.map((e) => {
+          //validacion que existan los datos
+          return (
+            <div>
               <Card
-            image={e.image}
-            name={e.name}
-            temperament={e.temperament}
-            weightMin={e.weightMin}
-            weightMax={e.weightMax}
-            id={e.id}
-            />
-            </div>      
-          )
+                image={e.image}
+                name={e.name}
+                temperament={e.temperament}
+                weightMin={e.weightMin}
+                weightMax={e.weightMax}
+                id={e.id}
+              />
+            </div>
+          );
         })}
+
         
-  
-        
-      {/* <Card
-    image="https://cdn2.thedogapi.com/images/rkiByec47.jpg"
-    name="African Hunting Dog"
-    temperament="2do temperamentoWild, Hardworking, Dutiful"
-    weightMin={3}
-    weightMax={6}
-    
-  /> */}
+      </div>
+      <div className={style.pagination}>
+        <Paginate
+          cantDogsPerPage={dogsPerPage}
+          cantDogs={dogs.length}
+          currentPage={currentPage}
+          paginado={paginado}
+        />
+      </div>
     </div>
-    <Paginate cantDogsPerPage={8} cantDogs={50} />
-  </div>
   );
 }

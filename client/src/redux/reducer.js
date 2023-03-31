@@ -1,4 +1,5 @@
-import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS } from "./types";
+import { getDetail } from "./actions";
+import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL } from "./types";
 
 const intialState = {
   allDogs: [],
@@ -20,6 +21,11 @@ export default function rootReducer(state = intialState, action) {
         ...state,
         temperaments: action.payload,
       };
+      case GET_DETAIL:
+        return {
+          ...state,
+          details: action.payload,
+        };
     default:
       return state;
   }
