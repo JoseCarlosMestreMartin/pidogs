@@ -1,4 +1,3 @@
-import { getDetail } from "./actions";
 import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL } from "./types";
 
 const intialState = {
