@@ -1,25 +1,30 @@
 import axios from "axios";
-import { GET_ALL_DOGS, GET_DETAIL }
-    from "./types";
+import { GET_ALL_DOGS, GET_DETAIL } from "./types";
 
-    const urlMyApi = "http://localhost:3001";
-export function getAllDogs(){
-    return async function(dispatch){
-        var aux = await axios.get(`${urlMyApi}/dogs`);
-       return dispatch({
-            type: GET_ALL_DOGS,
-            payload: aux.data,
-        });
-    };
+const urlMyApi = "http://localhost:3001";
+export function getAllDogs() {
+  return async function (dispatch) {
+    var aux = await axios.get(`${urlMyApi}/dogs`);
+    return dispatch({
+      type: GET_ALL_DOGS,
+      payload: aux.data,
+    });
+  };
+}
+export function getDetail(id) {
+  return async function (dispatch) {
+    var aux = await axios.get(`${urlMyApi}/dogs/${id}`);
+    console.log("GET_DETAIL: ", aux.data);
+    return dispatch({
+      type: GET_DETAIL,
+      payload: aux.data,
+    });
+  };
+}
 
-};
-export function getDetail(id){
-    return async function(dispatch){
-        var aux = await axios.get(`${urlMyApi}/dogs/${id}`);
-        console.log("GET_DETAIL: ", aux.data);
-        return dispatch({
-            type: GET_DETAIL,
-            payload: aux.data,
-        });
-    };
+export function clearDetail() {
+  return {
+    type: GET_DETAIL,
+    payload: [],
+  };
 }

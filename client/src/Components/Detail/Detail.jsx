@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { getDetail } from "../../redux/actions";
+import { clearDetail, getDetail } from "../../redux/actions";
 import style from "./Detail";
 import { Link } from "react-router-dom";
 
@@ -12,21 +12,22 @@ export default function Detail() {
 
   useEffect(() => {
     dispatch(getDetail(id));
+    return () => dispatch(clearDetail());
   }, [dispatch, id]);
 
-  console.log("________detail: ",detail);
-  console.log("_____id: ",id);
-  if (detail) {
+  console.log("________detail: ", detail);
+  console.log("_____id: ", id);
+  if (detail.id) {
     return (
       <div>
-        Este es el Detail de la raza id: {id}
         <Link to="/Home">
           <button>Home</button>
         </Link>
         <div>
           <div className={style.card}>
+            <h3>ID: {detail.id}</h3>
             <div className={style.imageDiv}>
-              <img src={detail.image} alt={`of: ${detail.name}`} with={100} />
+              <img src={detail.image} alt={`of: ${detail.name}`} width="80%" />
             </div>
             <div className={style.cardInfo}>
               <div className={style.conteinerFlex}>
@@ -34,11 +35,18 @@ export default function Detail() {
                   <Link to={`/Detail/${id}`}>
                     <h3>{detail.name}</h3>
                   </Link>
+                  <h3>
+                    Heigth: {detail.heightMin} to {detail.heightMax} mtrs
+                  </h3>
                 </div>
+                <h3>
+                  Weigth: {detail.weightMin} to {detail.weightMax} Kg
+                </h3>
                 <div className={style.text}>
                   <h3>{detail.temperament}</h3>
                   <h3>
-                    Weigth: {detail.weightMin} to {detail.weightMax} Kg
+                    {" "}
+                    Span {detail.life_spanMin} to {detail.life_spanMax} years
                   </h3>
                 </div>
               </div>
@@ -47,19 +55,16 @@ export default function Detail() {
         </div>
       </div>
     );
-  
-  }else{
+  } else {
     return (
       <div>
-        cargando raza id: {id} ...
         <Link to="/Home">
           <button>Home</button>
         </Link>
         <div>
-              <h1>Cargando...</h1>          
+          <h2>Loading...</h2>
         </div>
       </div>
     );
-  
   }
-  }
+}
