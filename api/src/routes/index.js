@@ -77,8 +77,8 @@ router.post("/dogs", async (req, res) => {
     heightMax,
     weightMin,
     weightMax,
-    life_spanMin,
-    life_spanMax,
+    lifeSpanMin,
+    lifeSpanMax,
     temperament,
   } = req.body;
   if (
@@ -87,8 +87,8 @@ router.post("/dogs", async (req, res) => {
     !heightMax ||
     !weightMin ||
     !weightMax ||
-    !life_spanMin ||
-    !life_spanMax ||
+    !lifeSpanMin ||
+    !lifeSpanMax ||
     !temperament
   ) {
     return res.status(400).send("Faltan datos");
@@ -96,7 +96,7 @@ router.post("/dogs", async (req, res) => {
   if (
     heightMin >= heightMax ||
     weightMin >= weightMax ||
-    life_spanMin >= life_spanMax
+    lifeSpanMin >= lifeSpanMax
   ) {
     return res.status(400).send("Los mìnimos deben ser menores a los máximos");
   }
@@ -110,8 +110,8 @@ router.post("/dogs", async (req, res) => {
       heightMax: parseFloat(heightMax),
       weightMin: parseFloat(weightMin),
       weightMax: parseFloat(weightMax),
-      life_spanMin: parseInt(life_spanMin),
-      life_spanMax: parseInt(life_spanMax),
+      lifeSpanMin: parseInt(lifeSpanMin),
+      lifeSpanMax: parseInt(lifeSpanMax),
       isCreated: true,
     });
     

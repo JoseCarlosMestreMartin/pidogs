@@ -46,7 +46,7 @@ export default function Detail() {
                   <h3>{detail.temperament}</h3>
                   <h3>
                     {" "}
-                    Span {detail.life_spanMin} to {detail.life_spanMax} years
+                    Span {detail.lifeSpanMin} to {detail.lifeSpanMax} years
                   </h3>
                 </div>
               </div>

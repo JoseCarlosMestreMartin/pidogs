@@ -1,10 +1,16 @@
-import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL, CLEAR_DETAIL } from "./types";
+import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL, CLEAR_DETAIL, FILTER_BY_NAME } from "./types";
 
 const intialState = {
   allDogs: [],
   temperaments: [],
   dogs: [],
   details: [],
+  // flagFilterByName: false,
+  // filterByName: "",
+  // flagFilterByTemperament: false,
+  // textFilterByTemperament: "",
+  // flagFilterIsCreated: false,
+  // filterIsCreated: false,
 };
 
 export default function rootReducer(state = intialState, action) {
@@ -31,6 +37,13 @@ export default function rootReducer(state = intialState, action) {
           ...state,
           details: [],
         }
+        case FILTER_BY_NAME:
+          return {
+            ...state,
+            dogs: state.allDogs.filter(e => { return(e.name.includes(action.payload))}),
+          }
+        
+
     default:
       return state;
   }

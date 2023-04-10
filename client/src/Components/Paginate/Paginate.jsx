@@ -17,7 +17,7 @@ export default function Paginate({
       <ul className={style.ulContainer}>
         {pageNumbers &&
           pageNumbers.map((e) => {
-            if (e == currentPage) {
+            if (e === currentPage) {
               return(<li
                 className={style.liContainerSelected}
                 onClick={() => paginado(e)}

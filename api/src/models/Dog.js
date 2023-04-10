@@ -35,10 +35,10 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
     },
-    life_spanMin: {
+    lifeSpanMin: {
       type: DataTypes.INTEGER,
     },
-    life_spanMax: {
+    lifeSpanMax: {
       type: DataTypes.INTEGER,
     },
     isCreated: {

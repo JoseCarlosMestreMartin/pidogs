@@ -1,5 +1,6 @@
 import axios from "axios";
-import { GET_ALL_DOGS, GET_DETAIL } from "./types";
+import { GET_ALL_DOGS, GET_DETAIL, FILTER_BY_NAME } from "./types";
+
 
 const urlMyApi = "http://localhost:3001";
 export function getAllDogs() {
@@ -28,3 +29,13 @@ export function clearDetail() {
     payload: [],
   };
 }
+
+export function filterByName(name) {
+  console.log("dentro de filterByName");
+  console.log("name: ", name);
+  return {
+    type: FILTER_BY_NAME,
+    payload: name,
+  }
+}
+

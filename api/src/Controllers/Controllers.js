@@ -51,25 +51,25 @@ const objDogApiToMiDog = (DogApi) => {
     !isNaN(life_span[0]) &&
     !isNaN(life_span[2])
   ) {
-    miDog.life_spanMin = parseInt(life_span[0].trim());
-    miDog.life_spanMax = parseInt(life_span[2].trim());
+    miDog.lifeSpanMin = parseInt(life_span[0].trim());
+    miDog.lifeSpanMax = parseInt(life_span[2].trim());
   } else if (life_span[0] && !isNaN(life_span[0])) {
-    miDog.life_spanMin = parseInt(
+    miDog.lifeSpanMin = parseInt(
       Math.floor(parseFloat(life_span[0].trim()) * 0.9 * 10) / 10
     );
-    miDog.life_spanMax = parseInt(
+    miDog.lifeSpanMax = parseInt(
       Math.ceil(parseFloat(life_span[0].trim()) * 1.1 * 10) / 10
     );
   } else if (life_span[2] && !isNaN(life_span[2])) {
-    miDog.life_spanMin = parseInt(
+    miDog.lifeSpanMin = parseInt(
       Math.floor(parseFloat(life_span[2].trim()) * 0.9 * 10) / 10
     );
-    miDog.life_spanMax = parseInt(
+    miDog.lifeSpanMax = parseInt(
       Math.ceil(parseFloat(life_span[2].trim()) * 1.1 * 10) / 10
     );
   } else {
-    miDog.life_spanMin = 1;
-    miDog.life_spanMax = 4;
+    miDog.lifeSpanMin = 1;
+    miDog.lifeSpanMax = 4;
   }
   //
   miDog.isCreated = false;
@@ -82,8 +82,8 @@ const objDogApiToMiDog = (DogApi) => {
     !miDog.heightMax ||
     !miDog.weightMin ||
     !miDog.weightMax ||
-    !miDog.life_spanMin ||
-    !miDog.life_spanMax
+    !miDog.lifeSpanMin ||
+    !miDog.lifeSpanMax
   ) {
     console.log(
       "falta un campo en la conversion de objetos de Dog de la api a dog de mi api",
@@ -133,8 +133,8 @@ const getAllDogsDB = async () => {
           heightMax: dog.heightMax,
           weightMin: dog.weightMin,
           weightMax: dog.weightMax,
-          life_spanMin: dog.life_spanMin,
-          life_spanMax: dog.life_spanMax,
+          lifeSpanMin: dog.lifeSpanMin,
+          lifeSpanMax: dog.lifeSpanMax,
           temperament: auxTemp,
           isCcreated: dog.isCreated
       };
