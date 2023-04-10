@@ -34,7 +34,8 @@ export default function FormCreate() {
   const handleInputChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
     setErrors(validate({ ...form, [e.target.name]: e.target.value }));
-  };
+
+  }
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
@@ -48,14 +49,14 @@ export default function FormCreate() {
       !errors.lifeSpanMax &&
       !errors.temperament
     ) {
-      dispatch(postDog(form));
+      //dispatch(postDog(form));
       alert("Excelente, se creo la nueva raza");
 
     }else{
       alert("Corriga los datos");
-    }
+    };
   };
-aqi te quedaste, tenes que crear el action
+
   return (
     <div>
       Este es el FormCreate

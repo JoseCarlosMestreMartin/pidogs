@@ -39,3 +39,15 @@ export function filterByName(name) {
   }
 }
 
+export const postDog = (newDog) => {
+    return async function (dispatch) {
+        try {
+            const res = await axios.post(`localhost:3001/dogs`, newDog);
+            return res;
+        } catch (error) {
+            return dispatch ({
+                type: ERROR,
+            })
+        }
+    };
+};
