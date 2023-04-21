@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./FormCreate.module.css";
 import validate from "./validate";
+import { postDog } from "../../redux/actions";
 
 export default function FormCreate() {
   const dispatch = useDispatch();
@@ -49,8 +50,8 @@ export default function FormCreate() {
       !errors.lifeSpanMax &&
       !errors.temperament
     ) {
-      //dispatch(postDog(form));
-      alert("Excelente, se creo la nueva raza");
+      dispatch(postDog(form));
+      //alert("Excelente, se creo la nueva raza :) ");
 
     }else{
       alert("Corriga los datos");

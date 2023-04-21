@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_DOGS, GET_DETAIL, FILTER_BY_NAME } from "./types";
+import { GET_ALL_DOGS, GET_DETAIL, FILTER_BY_NAME, POST_DOG } from "./types";
 
 
 const urlMyApi = "http://localhost:3001";
@@ -39,15 +39,15 @@ export function filterByName(name) {
   }
 }
 
-export const postDog = (newDog) => {
+export function postDog (newDog){
     return async function (dispatch) {
         try {
-            const res = await axios.post(`localhost:3001/dogs`, newDog);
-            return res;
+            const res = await axios.post(`http://localhost:3001/dogs`, newDog);
+            console.log("res.data: ", res.data);
+            return dispatch({type: POST_DOG,
+          payload: res.data });/// aqui te quedaste
         } catch (error) {
-            return dispatch ({
-                type: ERROR,
-            })
+          console.log(error);
         }
     };
 };

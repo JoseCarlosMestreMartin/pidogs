@@ -69,67 +69,91 @@ router.get("/dogs/:idRaza", async (req, res, next) => {
 // Esta ruta recibirá todos los datos necesarios para crear un nuevo perro y relacionarlo con los temperamentos asociados.
 // Toda la información debe ser recibida por body.
 // Debe crear la raza de perro en la base de datos, y esta debe estar relacionada con los temperamentos indicados (al menos uno).
-router.post("/dogs", async (req, res) => {
-  const {
-    image,
-    name,
-    heightMin,
-    heightMax,
-    weightMin,
-    weightMax,
-    lifeSpanMin,
-    lifeSpanMax,
-    temperament,
-  } = req.body;
-  if (
-    !name ||
-    !heightMin ||
-    !heightMax ||
-    !weightMin ||
-    !weightMax ||
-    !lifeSpanMin ||
-    !lifeSpanMax ||
-    !temperament
-  ) {
-    return res.status(400).send("Faltan datos");
-  }
-  if (
-    heightMin >= heightMax ||
-    weightMin >= weightMax ||
-    lifeSpanMin >= lifeSpanMax
-  ) {
-    return res.status(400).send("Los mìnimos deben ser menores a los máximos");
-  }
-  try {
-    let dog = await Dog.create({
-      image:
-        image ||
-        "https://www.mundoprimaria.com/wp-content/uploads/2019/07/dibujos-perros-para-colorear.jpg",
-      name,
-      heightMin: parseFloat(heightMin),
-      heightMax: parseFloat(heightMax),
-      weightMin: parseFloat(weightMin),
-      weightMax: parseFloat(weightMax),
-      lifeSpanMin: parseInt(lifeSpanMin),
-      lifeSpanMax: parseInt(lifeSpanMax),
-      isCreated: true,
-    });
+// router.post("/dogs", async (req, res) => {
+//   console.log("esta dentro del router.post")
+//   const {
+//     image,
+//     name,
+//     heightMin,
+//     heightMax,
+//     weightMin,
+//     weightMax,
+//     lifeSpanMin,
+//     lifeSpanMax,
+//     temperament,
+//   } = req.body;
+//   if (
+//     !name ||
+//     !heightMin ||
+//     !heightMax ||
+//     !weightMin ||
+//     !weightMax ||
+//     !lifeSpanMin ||
+//     !lifeSpanMax ||
+//     !temperament
+//   ) {
+//     return res.status(400).send("Faltan datos");
+//   }
+//   if (
+//     heightMin >= heightMax ||
+//     weightMin >= weightMax ||
+//     lifeSpanMin >= lifeSpanMax
+//   ) {
+//     return res.status(400).send("Los mìnimos deben ser menores a los máximos");
+//   }
+//   try {
+//     let dog = await Dog.create({
+//       image:
+//         image ||
+//         "https://www.mundoprimaria.com/wp-content/uploads/2019/07/dibujos-perros-para-colorear.jpg",
+//       name,
+//       heightMin: parseFloat(heightMin),
+//       heightMax: parseFloat(heightMax),
+//       weightMin: parseFloat(weightMin),
+//       weightMax: parseFloat(weightMax),
+//       lifeSpanMin: parseInt(lifeSpanMin),
+//       lifeSpanMax: parseInt(lifeSpanMax),
+//       isCreated: true,
+//     });
     
-    temperament.forEach( async (e) => {
-      let tempObj = await Temperament.findOrCreate({
-        where: { name: e },
-      });
-    console.log("tempObj: ",JSON.stringify(tempObj));
-    console.log("tempObj[0].id: ",JSON.stringify(tempObj[0].id));
-      //await dog.addTemperament(tempObj);
-      await dog.addTemperament(tempObj[0].id);
+//     temperament.forEach( async (e) => {
+//       let tempObj = await Temperament.findOrCreate({
+//         where: { name: e },
+//       });
+//     console.log("tempObj: ",JSON.stringify(tempObj));
+//     console.log("tempObj[0].id: ",JSON.stringify(tempObj[0].id));
+//       //await dog.addTemperament(tempObj);
+//       await dog.addTemperament(tempObj[0].id);
       
-    });
-    return res.status(200).send(dog);
-  } catch (error) {
-    return res.status(400).send(error.message);
-  }
+//     });
+//     return res.status(200).send(dog);
+//   } catch (error) {
+//     return res.status(400).send(error.message);
+//   }
+// });
+
+////////////
+router.post("/dogs", async (req, res) => {
+  console.log("......");
+  console.log("esta dentro del router.post");
+  console.log("req:",JSON.stringify(req.body));
+  return res.status(200).send({hola: "holis"});
+  const {
+        image,
+        name,
+        heightMin,
+        heightMax,
+        weightMin,
+        weightMax,
+        lifeSpanMin,
+        lifeSpanMax,
+        temperament,
+      } = req.body;
+      console.log("req:",JSON.stringify(req.body));
+
 });
+
+////////////
 
 // 📍 GET | /temperaments
 // Obtiene todos los temperamentos existentes.

@@ -1,4 +1,4 @@
-import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL, CLEAR_DETAIL, FILTER_BY_NAME } from "./types";
+import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL, CLEAR_DETAIL, FILTER_BY_NAME, POST_DOG } from "./types";
 
 const intialState = {
   allDogs: [],
@@ -42,7 +42,12 @@ export default function rootReducer(state = intialState, action) {
             ...state,
             dogs: state.allDogs.filter(e => { return(e.name.includes(action.payload))}),
           }
-        
+        case POST_DOG:
+          return {
+            ...state,
+            allDogs: state.allDogs.push(action.payload),
+            dogs: state.allDogs,
+          }
 
     default:
       return state;
