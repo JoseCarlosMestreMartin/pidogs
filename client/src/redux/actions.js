@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GET_ALL_DOGS, GET_DETAIL, FILTER_BY_NAME, POST_DOG, FILTER_BY_TEMPERAMENT } from "./types";
+import { GET_ALL_DOGS, GET_DETAIL, FILTER_BY_NAME, POST_DOG, FILTER_BY_TEMPERAMENT, FILTER_BY_CREATED } from "./types";
 
 
 const urlMyApi = "http://localhost:3001";
@@ -59,4 +59,12 @@ export function filterByTemperament(temperament){
     type: FILTER_BY_TEMPERAMENT,
     payload: temperament,
   }
-}
+};
+
+export function filterByCreated(created){
+  console.log("dentro de filterByCreated");
+  return {
+    type: FILTER_BY_CREATED,
+    payload: created,
+  }
+};

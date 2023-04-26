@@ -6,6 +6,7 @@ import {
   FILTER_BY_NAME,
   POST_DOG,
   FILTER_BY_TEMPERAMENT,
+  FILTER_BY_CREATED,
 } from "./types";
 
 const intialState = {
@@ -62,10 +63,18 @@ export default function rootReducer(state = intialState, action) {
       return {
         ...state,
         dogs: state.allDogs.filter((e) => {
-          console.log(e.temperaments,e.temperaments);
-          return e.temperaments.includes(action.payload);
+          return e.temperament?e.temperament.includes(action.payload):false;
         }),
       };
+      case FILTER_BY_CREATED:
+        return {
+          ...state,
+          dogs: state.allDogs.filter((e) => {
+          console.log("e.isCreated",e.isCreated);
+          return e.isCreated?e.isCreated:false;
+          }),
+        
+        };
 
     default:
       return state;
