@@ -4,4 +4,4 @@ export const GET_DETAIL = "GET_DETAIL";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
 export const FILTER_BY_NAME = "FILTER_BY_NAME";
 export const POST_DOG = "POST_DOG";
-
+export const FILTER_BY_TEMPERAMENT = "FILTER_BY_TEMPERAMENT";

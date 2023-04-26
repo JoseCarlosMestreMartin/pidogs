@@ -1,4 +1,12 @@
-import { GET_ALL_DOGS, GET_ALL_TEMPERAMENTS, GET_DETAIL, CLEAR_DETAIL, FILTER_BY_NAME, POST_DOG } from "./types";
+import {
+  GET_ALL_DOGS,
+  GET_ALL_TEMPERAMENTS,
+  GET_DETAIL,
+  CLEAR_DETAIL,
+  FILTER_BY_NAME,
+  POST_DOG,
+  FILTER_BY_TEMPERAMENT,
+} from "./types";
 
 const intialState = {
   allDogs: [],
@@ -26,28 +34,38 @@ export default function rootReducer(state = intialState, action) {
         ...state,
         temperaments: action.payload,
       };
-      case GET_DETAIL:
-        return {
-          ...state,
-          details: action.payload,
-        };
+    case GET_DETAIL:
+      return {
+        ...state,
+        details: action.payload,
+      };
 
-      case CLEAR_DETAIL:
-        return {
-          ...state,
-          details: [],
-        }
-        case FILTER_BY_NAME:
-          return {
-            ...state,
-            dogs: state.allDogs.filter(e => { return(e.name.includes(action.payload))}),
-          }
-        case POST_DOG:
-          return {
-            ...state,
-            allDogs: state.allDogs.push(action.payload),
-            dogs: state.allDogs,
-          }
+    case CLEAR_DETAIL:
+      return {
+        ...state,
+        details: [],
+      };
+    case FILTER_BY_NAME:
+      return {
+        ...state,
+        dogs: state.allDogs.filter((e) => {
+          return e.name.includes(action.payload);
+        }),
+      };
+    case POST_DOG:
+      return {
+        ...state,
+        allDogs: state.allDogs.push(action.payload),
+        dogs: state.allDogs,
+      };
+    case FILTER_BY_TEMPERAMENT:
+      return {
+        ...state,
+        dogs: state.allDogs.filter((e) => {
+          console.log(e.temperaments,e.temperaments);
+          return e.temperaments.includes(action.payload);
+        }),
+      };
 
     default:
       return state;
