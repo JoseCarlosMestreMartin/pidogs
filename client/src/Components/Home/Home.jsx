@@ -9,6 +9,7 @@ import Paginate from "../Paginate/Paginate";
 import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
 import FilterByTemperament from "../FilterByTemperament/FilterByTemperament";
+import FilterAndOrder from "../FilterAndOrder/FilterAndOrder";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ export default function Home() {
   return (
     <div>
       <div>
+        <FilterAndOrder/>
+        
         <SearchBar setCurrentPage={setCurrentPage}/> 
         <FilterByTemperament setCurrentPage={setCurrentPage}/>
       </div>
